@@ -2,6 +2,7 @@
 
 import logo from '../../images/logo.png';
 import cartIcon from '../../images/cartIcon.png';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SlLocationPin } from 'react-icons/sl';
@@ -9,6 +10,28 @@ import { HiOutlineSearch } from 'react-icons/hi';
 import { BiCaretDown } from 'react-icons/bi';
 
 const Header = () => {
+  // Get User Session soon with next-auth
+  const [allData, setAllData] = useState([]);
+  // get selector from redux 
+
+  // setAllData side-effect
+  // sideeffect for session user
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    console.log("query", searchQuery);
+  };
+
+  // useEffect(() => {
+  //   const filtered = allData.filter((item: StoreProduct) =>
+  //     item.title.toLocaleLowerCase().includes(searchQuery.toLowerCase())
+  //   );
+  //   setFilteredProducts(filtered);
+  // }, [searchQuery]);
+
   return (
     <div className="w-full h-20 bg-amazon_blue text-lightText sticky top-0 z-50">
       <div className="h-full w-full mx-auto inline-flex items-center justify-between gap-1 mdl:gap-3 px-4">
@@ -41,12 +64,52 @@ const Header = () => {
             className="w-full h-full rounded-md px-2 placeholder:text-sm text-base text-black border-[3px] border-transparent outline-none focus-visible:border-amazon_yellow"
             type="text"
             placeholder="Search Here"
+            onChange={handleSearch}
+            value={searchQuery}
           />
           <span className="w-12 h-full bg-amazon_yellow text-black text-2xl flex items-center justify-center absolute right-0 rounded-tr-md rounded-br-md">
             <HiOutlineSearch />
           </span>
 
           {/* Search Field */}
+          {searchQuery && (
+            <div className="absolute left-0 top-12 w-full mx-auto max-h-96 bg-gray-200 rounded-lg overflow-y-scroll cursor-pointer text-black">
+              {filteredProducts.length > 0 ? (
+                <div>
+                  {/* {searchQuery && filteredProducts?.map((item) => (
+                    <Link
+                      key={item._id}
+                      className="w-full border-b-[1px] border-b-gray-400 flex items-center gap-4"
+                      href={{
+                        pathname: `/product/${item._id}`,
+                        query: {
+                          _id: item._id,
+                          brand: item.brand,
+                          category: item.category,
+                          description: item.description,
+                          image: item.image,
+                          isNew: item.isNew,
+                          oldPrice: item.oldPrice,
+                          price: item.price,
+                          title: item.title,
+                        },
+                      }}
+                      onClick={() => setSearchQuery("")}
+                    >
+                      <SearchProducts item={item} />
+                    </Link>
+                  ))} */}
+                </div>
+              ) : (
+                <div className="bg-gray-50 flex items-center justify-center py-10 rounded-lg shadow-lg">
+                  <p className="text-xl font-semibold animate-bounce">
+                    Nothing is matches with your search keywords. Please try
+                    again!
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* User Sign */}
