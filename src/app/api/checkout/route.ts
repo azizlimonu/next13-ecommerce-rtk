@@ -1,13 +1,12 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { StoreProduct } from "@/types/type";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 export async function POST(
-  req: NextApiRequest,
+  req: Request,
 ) {
-  const { items, email } = req.body;
+  const { items, email } = await req.json();
   const modifiedItems = items.map((item: StoreProduct) => ({
     quantity: item.quantity,
     price_data: {
