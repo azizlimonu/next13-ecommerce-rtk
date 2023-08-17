@@ -1,12 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { StoreProduct } from "@/types/type"; 
+import { StoreProduct } from "@/types/type";
+import { NextResponse } from "next/server";
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-export default async function handler(
+export async function POST(
   req: NextApiRequest,
-  res: NextApiResponse
-) { 
+) {
   const { items, email } = req.body;
   const modifiedItems = items.map((item: StoreProduct) => ({
     quantity: item.quantity,
@@ -20,6 +20,7 @@ export default async function handler(
       },
     },
   }));
+
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     shipping_address_collection: {
@@ -34,7 +35,6 @@ export default async function handler(
       images: JSON.stringify(items.map((item: any) => item.image)),
     },
   });
-  res.status(200).json({
-    id: session.id,
-  });
+
+  return NextResponse.json({ id: session.id });
 }

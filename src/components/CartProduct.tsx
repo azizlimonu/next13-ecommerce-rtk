@@ -1,12 +1,12 @@
 "use client";
 
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import Image from 'next/image';
-import FormattedPrice from './FormatterPrice';
-import { decreaseQuantity, deleteProduct, increaseQuantity } from '@/redux/nextSlice';
-import { LuMinus, LuPlus } from 'react-icons/lu';
-import { IoMdClose } from 'react-icons/io';
+import Image from "next/image";
+import React from "react";
+import { LuMinus, LuPlus } from "react-icons/lu";
+import { IoMdClose } from "react-icons/io";
+import { useDispatch } from "react-redux";
+import FormattedPrice from "./FormatterPrice";
+import { decreaseQuantity, deleteProduct, increaseQuantity } from "@/redux/nextSlice";
 
 interface Item {
   brand: string;
@@ -23,9 +23,10 @@ interface Item {
 interface cartProductsProps {
   item: Item;
 }
+
 const CartProduct = ({ item }: cartProductsProps) => {
   const dispatch = useDispatch();
-
+  
   return (
     <div className="bg-gray-100 rounded-lg flex items-center gap-4">
       <Image
@@ -49,7 +50,6 @@ const CartProduct = ({ item }: cartProductsProps) => {
               <FormattedPrice amount={item.price} />
             </span>
           </p>
-
           <div className="flex items-center gap-6">
             <div className="flex items-center mt-1 justify-between border border-gray-300 px-4 py-1 rounded-full w-28 shadow-lg shadow-gray-300">
               <span
@@ -73,9 +73,9 @@ const CartProduct = ({ item }: cartProductsProps) => {
               >
                 <LuPlus />
               </span>
-
-              <span>{item.quantity}</span>
-
+              <span>
+                {item.quantity}
+              </span>
               <span
                 onClick={() =>
                   dispatch(
@@ -98,18 +98,16 @@ const CartProduct = ({ item }: cartProductsProps) => {
                 <LuMinus />
               </span>
             </div>
-
             <div
               onClick={() => dispatch(deleteProduct(item._id))}
               className="flex items-center text-sm font-medium text-gray-400 hover:text-red-600 cursor-pointer duration-300"
             >
-              <IoMdClose className="mt-[2px]" />
-              <p>remove</p>
+              <IoMdClose className="mt-[2px]" /> <p>
+                remove
+              </p>
             </div>
-
           </div>
         </div>
-
         <div className="text-lg font-semibold text-amazon_blue">
           <FormattedPrice amount={item.price * item.quantity} />
         </div>

@@ -1,3 +1,5 @@
+"use client";
+
 import { Carousel } from "react-responsive-carousel";
 import sliderImg_1 from "../images/slider/sliderImg_1.jpg";
 import sliderImg_2 from "../images/slider/sliderImg_2.jpg";
