@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
@@ -28,7 +30,7 @@ const Page = () => {
             <ResetFavoriteItems />
           </div>
         </div>
-        
+
       ) : (
         <div className="bg-white h-96  flex flex-col items-center justify-center py-5 rounded-lg shadow-lg">
           <h1>Nothing is available in the Favorite list</h1>
