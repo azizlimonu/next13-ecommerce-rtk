@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import React from "react";
 
@@ -71,7 +73,7 @@ const FavoriteProduct = ({ item }: cartProductProps) => {
             add to cart
           </button>
         </div>
-        
+
         <div className="text-lg font-semibold text-amazon_blue">
           <FormattedPrice amount={item.price * item.quantity} />
         </div>

@@ -1,13 +1,11 @@
-"use client";
+import React from "react";
+import { useSelector } from "react-redux";
+import Link from "next/link";
+import { StateProps, StoreProduct } from "@/types/type";
+import FavoriteProduct from "@/components/FavoriteProduct";
+import ResetFavoriteItems from "@/components/ResetFavoriteItems";
 
-import FavoriteProduct from '@/components/FavoriteProduct';
-import ResetFavoriteItems from '@/components/ResetFavoriteItems';
-import { StateProps, StoreProduct } from '@/types/type';
-import React from 'react';
-import { useSelector } from 'react-redux';
-import Link from 'next/link';
-
-const Page = () => {
+const FavoritePage = () => {
   const { favoriteData } = useSelector((state: StateProps) => state.next);
 
   return (
@@ -40,7 +38,7 @@ const Page = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Page;
+export default FavoritePage;
