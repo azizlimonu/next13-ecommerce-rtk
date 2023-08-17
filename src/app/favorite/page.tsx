@@ -5,7 +5,7 @@ import { StateProps, StoreProduct } from "@/types/type";
 import FavoriteProduct from "@/components/FavoriteProduct";
 import ResetFavoriteItems from "@/components/ResetFavoriteItems";
 
-const FavoritePage = () => {
+const Page = () => {
   const { favoriteData } = useSelector((state: StateProps) => state.next);
 
   return (
@@ -18,6 +18,7 @@ const FavoritePage = () => {
             </p>
             <p className="text-lg font-semibold text-amazon_blue">Action</p>
           </div>
+
           <div>
             {favoriteData.map((item: StoreProduct) => (
               <div key={item._id} className="mt-2">
@@ -27,6 +28,7 @@ const FavoritePage = () => {
             <ResetFavoriteItems />
           </div>
         </div>
+        
       ) : (
         <div className="bg-white h-96  flex flex-col items-center justify-center py-5 rounded-lg shadow-lg">
           <h1>Nothing is available in the Favorite list</h1>
@@ -41,4 +43,4 @@ const FavoritePage = () => {
   );
 };
 
-export default FavoritePage;
+export default Page;

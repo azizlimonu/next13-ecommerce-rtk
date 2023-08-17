@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
 import { SiMediamarkt } from "react-icons/si";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSession } from "next-auth/react";
@@ -12,7 +12,9 @@ const CartPayment = () => {
   const { productData, userInfo } = useSelector(
     (state: StateProps) => state.next
   );
+
   const [totalAmount, setTotalAmount] = useState(0);
+
   useEffect(() => {
     let amt = 0;
     productData.map((item: StoreProduct) => {
@@ -25,6 +27,7 @@ const CartPayment = () => {
   const stripePromise = loadStripe(
     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
   );
+
   const { data: session } = useSession();
 
   const handleCheckout = async () => {
@@ -39,7 +42,6 @@ const CartPayment = () => {
     });
     const checkoutSession = await response.json();
 
-    // Redirecting user/customer to Stripe Checkout
     const result: any = await stripe?.redirectToCheckout({
       sessionId: checkoutSession.id,
     });
@@ -47,6 +49,7 @@ const CartPayment = () => {
       alert(result?.error.message);
     }
   };
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex gap-2">
@@ -64,6 +67,7 @@ const CartPayment = () => {
           <FormattedPrice amount={totalAmount} />
         </span>
       </p>
+      
       {userInfo ? (
         <div className="flex flex-col items-center">
           <button
