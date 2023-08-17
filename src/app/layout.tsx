@@ -1,4 +1,3 @@
-"use client";
 import Header from '@/components/header/Header'
 import '../styles/globals.css'
 import type { Metadata } from 'next'
